@@ -1,27 +1,37 @@
-# Next.js + Tailwind CSS Example
+![An application for personal finance](https://res.cloudinary.com/dj3ua4rkx/image/upload/v1675546670/fsavings/logo_dwtoqn.png)
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.2)](https://tailwindcss.com/blog/tailwindcss-v3-2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+# FSavings
 
-## Deploy your own
+- **Framework**: [Next.js](https://nextjs.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+<!-- - **Content**: [Notion API](https://developers.notion.com) -->
+- **Database**: [Supabase](https://supabase.com)
+- **Open Graph Images**: [Cloudinary](https://cloudinary.com)
+  <!-- - **Newsletter**: [Revue](https://www.getrevue.co) -->
+  <!-- - **Deployment**: [Vercel](https://vercel.com) -->
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+## Project Overview
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+- `components/*` - Various components used throughout the site.
+- `layouts/*` - The different layout options available to use on each page.
+- `lib/*` - Short for "library", a collection of helpful utilities or code for external services.
+- `pages/api/*` - [API routes](https://nextjs.org/docs/api-routes/introduction)
+<!-- - `pages/blog/*` - Static pre-rendered blog pages that fetch information from the Notion API. -->
 
-## How to use
+- `pages/*` - All other static pages.
+- `public/*` - Static assets including robots.txt
+- `styles/*` - A handful of global styles, and reusable classes utilzing @apply with Tailwind.
+- `data/*` - a simple object containing global data about the site.
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+## Running Locally
 
 ```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
+$ npm install
+$ npm run dev
 ```
 
-```bash
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-```
+Create a `.env` file similar to `.env.example` and include the appropriate keys.
 
-```bash
-pnpm create next-app --example with-tailwindcss with-tailwindcss-app
-```
+## Notion Article Template
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+Duplicate [the following Notion database](https://www.notion.so/0d3e00c6bbe54231897b9fcbc7747f78?v=4d7f0006d9a144b5bd8b9251f2ec39cd), grab the database ID and add it to the environment variables in the `.env` file.

@@ -1,86 +1,88 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
+import { ButtonType, SubscribeSize } from '@/lib/types';
+import { convertToArticleList, getPublishedArticles } from '@/lib/notion';
 
-const Home: NextPage = () => {
+import { ArticleList } from '@/components/ArticleList';
+import { Button } from '@/components/Button';
+import { Container } from 'layouts/Container';
+import { GetStaticProps } from 'next';
+import Image from 'next/image';
+import { Subscribe } from '@/components/Subscribe';
+import { generateRssFeed } from 'scripts/generate-rss';
+import siteMetadata from '@/data/siteMetadata';
+import { useRouter } from 'next/router';
+
+export default function Home({ 
+  // recentArticles 
+}) {
+  const { push } = useRouter();
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="rounded-md bg-gray-100 p-3 font-mono text-lg">
-            pages/index.tsx
-          </code>
-        </p>
-
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and its API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+    <Container showCircles>
+      <div>
+        <div>
+          <div className="grid items-center grid-cols-1 mt-12 text-center md:mt-24 md:text-left md:grid-cols-6">
+            <h1 className="order-2 col-span-5 text-4xl leading-tight md:leading-normal md:order-1 sm:text-5xl">
+              <span className="text-teal-500 dark:text-teal-400">FSavings </span> 
+              is a personal finance app that helps you save money and track your expenses. It's simple, easy to use, and free.
+            </h1>
+            <div className="order-1 md:order-2">
+              <Image
+                alt="Avatar"
+                height={160}
+                width={160}
+                src={siteMetadata.avatarImage}
+                placeholder="blur"
+                blurDataURL={siteMetadata.avatarImage}
+                className="col-span-1 rounded-xl  border-white border-4"
+                layout="fixed"
+              />
+            </div>
+          </div>
+          <div className="space-y-6 md:space-y-0 md:space-x-4">
+            <Button
+              buttonType={ButtonType.PRIMARY}
+              onButtonClick={() => push('/dashboard')}
+            >
+              Join now
+            </Button>
+            <Button
+              buttonType={ButtonType.SECONDARY}
+              onButtonClick={() => push('/learn')}
+            >
+              Learn more
+            </Button>
+          </div>
         </div>
-      </main>
-
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center gap-2"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </a>
-      </footer>
-    </div>
-  )
+        <hr className="hr"></hr>
+        <div>
+          <h2>I love to share my knowledge through writing.</h2>
+          <p>Check out a few of my most recent publishings.</p>
+          {/* <ArticleList articles={recentArticles} /> */}
+          <div className="my-16">
+            <Button
+              buttonType={ButtonType.PRIMARY}
+              onButtonClick={() => push('/blog')}
+            >
+              See all articles
+            </Button>
+          </div>
+          <div className="mt-16">
+            <Subscribe size={SubscribeSize.LARGE} />
+          </div>
+        </div>
+      </div>
+    </Container>
+  );
 }
 
-export default Home
+export const getStaticProps: GetStaticProps = async () => {
+  // const data = await getPublishedArticles(process.env.BLOG_DATABASE_ID);
+  // const { articles } = convertToArticleList(data);
+  // await generateRssFeed();
+
+  return {
+    props: {
+      // recentArticles: articles.slice(0, 3)
+    },
+    revalidate: 30
+  };
+};
